@@ -34,7 +34,7 @@ on:
       use-artifacts-v3:
         description: If true, use actions/upload-artifact@v3 instead of actions/upload-artifact@v4
         type: boolean
-        default: true
+        default: false
     secrets:
       GH_TOKEN:
         required: true
