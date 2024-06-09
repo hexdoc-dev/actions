@@ -26,10 +26,6 @@ inputs:
     description: Name of the GitHub Pages artifact to download
     required: false
     default: hexdoc-pages
-  use-artifacts-v3:
-    description: If true, use actions/download-artifact@v3 instead of actions/download-artifact@v4
-    required: false
-    default: "false"
   pages-branch:
     description: Name of the branch used for GitHub Pages
     required: false
@@ -48,15 +44,8 @@ runs:
       shell: bash
       run: uv pip install --system -e .${{ inputs.pip-extras }}
 
-    - name: Download Pages artifact (v4)
-      if: inputs.use-artifacts-v3 != 'true'
+    - name: Download Pages artifact
       uses: actions/download-artifact@v4
-      with:
-        name: ${{ inputs.pages-artifact }}
-
-    - name: Download Pages artifact (v3)
-      if: inputs.use-artifacts-v3 == 'true'
-      uses: actions/download-artifact@v3
       with:
         name: ${{ inputs.pages-artifact }}
 
@@ -67,7 +56,7 @@ runs:
         unzip site.zip -d _site/src/docs
 
     - name: Checkout current Pages
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       continue-on-error: true
       with:
         ref: ${{ inputs.pages-branch }}

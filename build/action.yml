@@ -30,10 +30,6 @@ inputs:
     description: Name of the Python build artifact to upload
     required: false
     default: hexdoc-build
-  use-artifacts-v3:
-    description: If true, use actions/upload-artifact@v3 instead of actions/upload-artifact@v4
-    required: false
-    default: "false"
 
 outputs:
   pages-url:
@@ -46,7 +42,6 @@ outputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
       with:
         python-version: ${{ inputs.python-version }}
@@ -77,30 +72,14 @@ runs:
       shell: bash
       run: zip site.zip ./* -r
 
-    - name: Upload intermediate Pages artifact (v4)
-      if: inputs.use-artifacts-v3 != 'true'
+    - name: Upload intermediate Pages artifact
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.pages-artifact }}
         path: _site/src/docs/site.zip
 
-    - name: Upload package artifact (v4)
-      if: inputs.use-artifacts-v3 != 'true'
+    - name: Upload package artifact
       uses: actions/upload-artifact@v4
-      with:
-        name: ${{ inputs.build-artifact }}
-        path: dist
-
-    - name: Upload intermediate Pages artifact (v3)
-      if: inputs.use-artifacts-v3 == 'true'
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ inputs.pages-artifact }}
-        path: _site/src/docs/site.zip
-
-    - name: Upload package artifact (v3)
-      if: inputs.use-artifacts-v3 == 'true'
-      uses: actions/upload-artifact@v3
       with:
         name: ${{ inputs.build-artifact }}
         path: dist

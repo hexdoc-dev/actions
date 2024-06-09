@@ -31,10 +31,6 @@ on:
         description: Set the base site url instead of looking up the current repo's GitHub Pages url
         type: string
         required: false
-      use-artifacts-v3:
-        description: If true, use actions/upload-artifact@v3 instead of actions/upload-artifact@v4
-        type: boolean
-        default: false
     secrets:
       GH_TOKEN:
         required: true
@@ -69,7 +65,6 @@ jobs:
           props: ${{ inputs.props }}
           pip-extras: ${{ inputs.pip-extras }}
           subdirectory: ${{ inputs.subdirectory }}
-          use-artifacts-v3: ${{ inputs.use-artifacts-v3 }}
           site-url: ${{ inputs.site-url }}
 
   deploy-pages:
@@ -92,5 +87,4 @@ jobs:
           props: ${{ inputs.props }}
           pip-extras: ${{ inputs.pip-extras }}
           subdirectory: ${{ inputs.subdirectory }}
-          use-artifacts-v3: ${{ inputs.use-artifacts-v3 }}
           site-url: ${{ needs.build.outputs.pages-url }}
