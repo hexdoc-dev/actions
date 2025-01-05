@@ -13,6 +13,9 @@ inputs:
   pip-extras:
     description: Pip extras for your package (eg. "[dev]")
     required: false
+  pip-args:
+    description: Extra arguments when running `uv pip install`
+    required: false
 
 runs:
   using: composite
@@ -28,4 +31,4 @@ runs:
 
     - name: Install Python packages
       shell: bash
-      run: uv pip install --system -e .${{ inputs.pip-extras }}
+      run: uv pip install --system -e .${{ inputs.pip-extras }} ${{ inputs.pip-args }}

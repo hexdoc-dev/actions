@@ -19,6 +19,10 @@ on:
         description: Pip extras for your package (eg. [dev])
         type: string
         required: false
+      pip-args:
+        description: Extra arguments when running `uv pip install`
+        type: string
+        required: false
       deploy-pages:
         description: If the workflow should deploy to GitHub Pages
         type: boolean
@@ -60,6 +64,7 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
           pip-extras: ${{ inputs.pip-extras }}
+          pip-args: ${{ inputs.pip-args }}
 
       - id: build
         uses: hexdoc-dev/actions/build@v0
@@ -87,6 +92,7 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
           pip-extras: ${{ inputs.pip-extras }}
+          pip-args: ${{ inputs.pip-args }}
 
       - uses: hexdoc-dev/actions/deploy-pages@v0
         env:
