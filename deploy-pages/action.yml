@@ -23,11 +23,17 @@ inputs:
     description: Name of the branch used for GitHub Pages
     required: false
     default: gh-pages
+  merge:
+    description: "Boolean: if hexdoc-dev/actions/merge should be automatically run. Defaults to 'true'. Set to 'false' if you want to use a specific version of that action"
+    required: false
+    default: 'true'
 
 runs:
   using: composite
   steps:
-    - uses: hexdoc-dev/actions/merge@v0
+    # TODO: https://github.com/orgs/community/discussions/41927
+    - if: inputs.merge == true
+      uses: hexdoc-dev/actions/merge@v1
       with:
         release: ${{ inputs.release }}
         props: ${{ inputs.props }}
