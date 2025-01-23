@@ -11,3 +11,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: object-Object/action-update-semver@v1.2.1-fix
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
