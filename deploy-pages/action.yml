@@ -32,7 +32,7 @@ runs:
   using: composite
   steps:
     # TODO: https://github.com/orgs/community/discussions/41927
-    - if: inputs.merge == true
+    - if: inputs.merge == 'true'
       uses: hexdoc-dev/actions/merge@v1
       with:
         release: ${{ inputs.release }}
